@@ -36,7 +36,7 @@ export default function BranchModal({ branch, onClose, onSave }: BranchModalProp
       result = await supabase
         .from('branches')
         .update(data)
-        .eq('id', branch.id);
+        .eq('branch_id', branch.branch_id);
     } else {
       result = await supabase
         .from('branches')

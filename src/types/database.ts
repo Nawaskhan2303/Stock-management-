@@ -11,28 +11,31 @@ export interface Database {
     Tables: {
       branches: {
         Row: {
-          id: string;
+          branch_id: string;
           name: string;
+          branch_name: string;
+          branch_code: string;
           address: string;
           phone: string;
           is_active: boolean;
-          created_at: string;
         };
         Insert: {
-          id?: string;
+          branch_id?: string;
           name: string;
+          branch_name?: string;
+          branch_code?: string;
           address?: string;
           phone?: string;
           is_active?: boolean;
-          created_at?: string;
         };
         Update: {
-          id?: string;
+          branch_id?: string;
           name?: string;
+          branch_name?: string;
+          branch_code?: string;
           address?: string;
           phone?: string;
           is_active?: boolean;
-          created_at?: string;
         };
       };
       profiles: {

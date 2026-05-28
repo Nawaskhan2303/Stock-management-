@@ -33,7 +33,7 @@ export default function Dashboard() {
     const { data: stockData } = await supabase
       .from('stock_items')
       .select('*, categories(*)')
-      .eq('branch_id', currentBranch.id)
+      .eq('branch_id', currentBranch.branch_id)
       .order('name');
 
     if (stockData) {
@@ -48,7 +48,7 @@ export default function Dashboard() {
         profiles ( full_name ),
         branches ( name )
       `)
-      .eq('branch_id', currentBranch.id)
+      .eq('branch_id', currentBranch.branch_id)
       .order('created_at', { ascending: false })
       .limit(10);
 
