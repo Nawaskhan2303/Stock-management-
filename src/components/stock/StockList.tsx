@@ -36,7 +36,7 @@ export default function StockList() {
     const { data, error } = await supabase
       .from('stock_items')
       .select('*, categories(*)')
-      .eq('branch_id', currentBranch.branch_id)
+      .eq('branch_id', currentBranch.id)
       .order('name');
 
     if (!error && data) {
@@ -257,7 +257,7 @@ export default function StockList() {
         <StockModal
           item={editingItem}
           categories={categories}
-          branchId={currentBranch?.branch_id || ''}
+          branchId={currentBranch?.id || ''}
           onClose={() => {
             setShowModal(false);
             setEditingItem(null);
@@ -275,7 +275,7 @@ export default function StockList() {
           item={adjustingItem}
           adjustType={adjustType}
           userId={user?.id || ''}
-          branchId={currentBranch?.branch_id || ''}
+          branchId={currentBranch?.id || ''}
           onClose={() => {
             setShowAdjustModal(false);
             setAdjustingItem(null);

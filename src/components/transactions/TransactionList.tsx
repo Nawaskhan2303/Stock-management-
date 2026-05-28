@@ -30,7 +30,7 @@ export default function TransactionList() {
         profiles ( full_name ),
         branches ( name )
       `)
-      .eq('branch_id', currentBranch.branch_id)
+      .eq('branch_id', currentBranch.id)
       .order('created_at', { ascending: false });
 
     if (filterType !== 'all') {
