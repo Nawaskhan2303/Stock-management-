@@ -124,13 +124,13 @@ export default function Header({
                   <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-2">
                     {branches.map((branch) => (
                       <button
-                        key={branch.id}
+                        key={branch.branch_id}
                         onClick={() => {
                           setCurrentBranch(branch);
                           setShowBranchMenu(false);
                         }}
                         className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-50 ${
-                          currentBranch?.id === branch.id
+                          currentBranch?.branch_id === branch.branch_id
                             ? 'bg-blue-50 text-blue-700 font-medium'
                             : 'text-gray-700'
                         }`}

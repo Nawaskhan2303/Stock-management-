@@ -82,13 +82,13 @@ export default function AdminSettings() {
         (payload) => {
           if (payload.eventType === 'UPDATE' && payload.new) {
             setBranches(prev =>
-              prev.map(b => b.id === (payload.new as Branch).id ? payload.new as Branch : b)
+              prev.map(b => b.branch_id === (payload.new as Branch).branch_id ? payload.new as Branch : b)
             );
           } else if (payload.eventType === 'DELETE' && payload.old) {
-            setBranches(prev => prev.filter(b => b.id !== (payload.old as Branch).id));
+            setBranches(prev => prev.filter(b => b.branch_id !== (payload.old as Branch).branch_id));
           } else if (payload.eventType === 'INSERT' && payload.new) {
             setBranches(prev => {
-              const exists = prev.some(b => b.id === (payload.new as Branch).id);
+              const exists = prev.some(b => b.branch_id === (payload.new as Branch).branch_id);
               if (exists) return prev;
               return [payload.new as Branch, ...prev];
             });
@@ -108,7 +108,7 @@ export default function AdminSettings() {
     const { data: branchData } = await supabase
       .from('branches')
       .select('*')
-      .order('id', { ascending: false })
+      .order('name')
 
     if (branchData) setBranches(branchData);
     console.log("branchData:", branchData);
@@ -123,7 +123,7 @@ export default function AdminSettings() {
     setLoading(false);
   }
 
-  async function handleUpdateUserRole(userId: string, newRole: string) {
+  async function handleUpdateUserRole(userId: string, newRole: Profile['role']) {
     // Mark only this specific user as updating
     setUpdatingRoleIds(prev => new Set(prev).add(userId));
     setSuccessMessage(null);
@@ -296,7 +296,7 @@ export default function AdminSettings() {
               <div className="space-y-3">
                 {branches.map((branch) => (
                   <div
-                    key={branch.id}
+                    key={branch.branch_id}
                     className="flex items-start justify-between p-4 rounded-lg border border-gray-200 hover:border-gray-300 transition-colors"
                   >
                     <div className="flex items-start gap-3">
@@ -365,7 +365,7 @@ export default function AdminSettings() {
                     <div className="flex items-center gap-3">
                       <select
                         value={user.role}
-                        onChange={(e) => handleUpdateUserRole(user.id, e.target.value)}
+                        onChange={(e) => handleUpdateUserRole(user.id, e.target.value as Profile['role'])}
                         // Only disable THIS user's dropdown, not all of them
                         disabled={updatingRoleIds.has(user.id)}
                         className="px-3 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -413,6 +413,7 @@ export default function AdminSettings() {
             setEditingBranch(null);
           }}
           onSave={() => {
+            fetchData();
             setShowBranchModal(false);
             setEditingBranch(null);
           }}

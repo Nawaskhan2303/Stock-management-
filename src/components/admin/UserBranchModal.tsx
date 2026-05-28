@@ -79,7 +79,7 @@ export default function UserBranchModal({ user, onClose }: UserBranchModalProps)
 
   const assignedBranchIds = userBranches.map((ub) => ub.branch_id);
   const availableBranches = branches.filter(
-    (b) => !assignedBranchIds.includes(b.id)
+    (b) => !assignedBranchIds.includes(b.branch_id)
   );
 
   return (
@@ -160,7 +160,7 @@ export default function UserBranchModal({ user, onClose }: UserBranchModalProps)
                     >
                       <option value="">Select branch...</option>
                       {availableBranches.map((branch) => (
-                        <option key={branch.id} value={branch.id}>
+                        <option key={branch.branch_id} value={branch.branch_id}>
                           {branch.name}
                         </option>
                       ))}
